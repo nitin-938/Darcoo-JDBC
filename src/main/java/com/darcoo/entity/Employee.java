@@ -5,9 +5,6 @@ public class Employee {
 	private int id; 
 	private String name,gender;
 	private int salary;
-	
-	
-	
 	public Employee() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -66,6 +63,12 @@ public class Employee {
 		this.name = name;
 		this.gender = gender;
 		this.salary = salary;
+	}
+
+
+	public void saveEmp(Employee emp) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
