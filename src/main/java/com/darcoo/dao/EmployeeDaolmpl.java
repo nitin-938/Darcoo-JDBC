@@ -90,20 +90,22 @@ public class EmployeeDaolmpl  implements EmployeeDao {
 
 	@Override
 	public void printAllEmps() throws SQLException {
-	
+
 		Statement statement = connection.createStatement();
 	//	statement.executeUpdate(SELECT_QUERY);
-		statement.executeUpdate("SELECT * FROM EMPLOYEE ");
+    //	statement.executeUpdate("SELECT * FROM EMPLOYEE ");
+		String SELECT_QUERY = "SELECT * FROM EMPLOYEE";
+	
 		ResultSet resultSet = statement.executeQuery("SELECT * FROM EMPLOYEE");
 		
+
 		while(resultSet.next()) 
 	    {
-		System.out.println("ID = "+resultSet.getInt(1)+ "/t NAME = " + resultSet.getString(2)+"/t GENDER = "+resultSet.getInt(3)+"/t SALARY = "+resultSet.getInt(4)  );	
+		System.out.println("ID = "+resultSet.getInt(1)+ "\t NAME = " + resultSet.getString(2)+"\t GENDER = "+resultSet.getString("gender")+"\t SALARY = "+resultSet.getInt(4)  );	
 		}
 		
-		System.out.println(SELECT_QUERY);	
+		System.err.println(SELECT_QUERY);
 		
-
 	}
 	
 }

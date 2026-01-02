@@ -15,15 +15,12 @@ public class EmployeeRunner {
 		EmployeeDao edao = new EmployeeDaolmpl();
 		  
 		Employee emp = new Employee(8,"anshu", "male",44000 );
+ 
+		
+		edao.printAllEmps();
+		
+		
 	
-//		edao.saveEmp(emp);
-//		edao.updateEmp(emp);
-		edao.deleteEmpById(3);
-		edao.select
-		
-		
-		
-		System.out.println(); 
 		
 		
 		
