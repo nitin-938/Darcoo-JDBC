@@ -2,6 +2,7 @@ package com.darcoo.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -11,7 +12,9 @@ import com.darcoo.entity.Employee;
 public class EmployeeDaolmpl  implements EmployeeDao {
 	
 	private static final String INSERT_QUERY = "INSERT INTO EMPLOYEE ( ID, NAME,GENDER,SALARY) VALUES (%d,'%s','%s',%d)";
-	private static final String UPDATE_QUERY = "UPDATE EMPLOYEE SET NAME = '%s', GENDER = '%s', SALARY = '%d' WHERE Id = %d";
+	private static final String UPDATE_QUERY = "UPDATE EMPLOYEE SET NAME = '%s', GENDER = '%s', SALARY= '%d' WHERE Id = %d";
+	private static final String DELETE_QUERY = "DELETE FROM EMPLOYEE WHERE ID = %d";
+	private static final String SELECT_QUERY = "SELECT * FROM EMPLOYEE ";
 	
 	static Connection connection = null;
 	
@@ -19,7 +22,6 @@ public class EmployeeDaolmpl  implements EmployeeDao {
 		
 		try {
 		 connection= DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "root");
-		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -35,31 +37,37 @@ public class EmployeeDaolmpl  implements EmployeeDao {
 		
 		} catch (SQLException e1) {
 			e1.printStackTrace();
-		}
-		
+		}	
 	}
 
 	@Override
-	public void updateEmp(Employee e) {
-		// TODO Auto-generated method stub
-
-		try (Statement statement = connection.createStatement()){
-			
+	public void updateEmp(Employee e) throws SQLException
+	{		
+//		Second Aproach
 		
+			Statement statement = connection.createStatement();
 			statement.executeUpdate(String.format(UPDATE_QUERY  ,e.getName(),e.getGender(),e.getSalary(),e.getId()));
 			System.out.println  (String.format(UPDATE_QUERY  ,e.getName(),e.getGender(),e.getSalary(),e.getId()));
-		
+	
+		/*
+//		 First Aproach
+
+		try (Statement statement = connection.createStatement()){
+			statement.executeUpdate(String.format(UPDATE_QUERY  ,e.getName(),e.getGender(),e.getSalary(),e.getId()));
+			System.out.println  (String.format(UPDATE_QUERY  ,e.getName(),e.getGender(),e.getSalary(),e.getId()));
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		 
+		 */
 		
 	}
 
 	@Override
-	public void deleteEmpById(int id) {
+	public void deleteEmpById(int id) throws SQLException {
 		
-		
+		Statement statement = connection.createStatement();
+		statement.executeUpdate(String.format(DELETE_QUERY,id));
+		System.out.println  (String.format(DELETE_QUERY  ,id));	
 	}
 
 	@Override
@@ -81,9 +89,21 @@ public class EmployeeDaolmpl  implements EmployeeDao {
 	}
 
 	@Override
-	public void printAllEmps() {
-		// TODO Auto-generated method stub
+	public void printAllEmps() throws SQLException {
+	
+		Statement statement = connection.createStatement();
+	//	statement.executeUpdate(SELECT_QUERY);
+		statement.executeUpdate("SELECT * FROM EMPLOYEE ");
+		ResultSet resultSet = statement.executeQuery("SELECT * FROM EMPLOYEE");
 		
+		while(resultSet.next()) 
+	    {
+		System.out.println("ID = "+resultSet.getInt(1)+ "/t NAME = " + resultSet.getString(2)+"/t GENDER = "+resultSet.getInt(3)+"/t SALARY = "+resultSet.getInt(4)  );	
+		}
+		
+		System.out.println(SELECT_QUERY);	
+		
+
 	}
 	
 }

@@ -1,5 +1,7 @@
 package com.darcoo.main;
 
+import java.sql.SQLException;
+
 import com.darcoo.dao.EmployeeDao;
 import com.darcoo.dao.EmployeeDaolmpl;
 import com.darcoo.entity.Employee;
@@ -8,16 +10,16 @@ import com.darcoo.entity.Employee;
  
 public class EmployeeRunner {
 
-	public static void main(String[]args) {
+	public static void main(String[]args) throws SQLException {
 		
 		EmployeeDao edao = new EmployeeDaolmpl();
 		  
-		Employee emp = new Employee(5,"Himanshu", "male",80000 );
+		Employee emp = new Employee(8,"anshu", "male",44000 );
 	
 //		edao.saveEmp(emp);
-		edao.updateEmp(emp);
-		
-		
+//		edao.updateEmp(emp);
+		edao.deleteEmpById(3);
+		edao.select
 		
 		
 		
