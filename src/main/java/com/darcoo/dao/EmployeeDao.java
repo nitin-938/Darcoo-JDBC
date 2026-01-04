@@ -13,13 +13,21 @@ public interface EmployeeDao{
 	
 	public void deleteEmpById(int id)throws SQLException;
 	
-	public Employee getEmpById(int id);
+	public Employee getEmpById(int id) throws SQLException;
 
-	public Employee saveEmpByName(String name);
+	public Employee getEmpByName(String name) throws SQLException;
+	
+	public void printEmpByName(String name) throws SQLException;
 	
 	public  List<Employee> getAllEmps ();
 	
 	public void printAllEmps() throws SQLException;
+
+
+
+	
+
+
 	
 	
 }
